@@ -1,4 +1,4 @@
-package com.netanel.pawzplay.android
+package com.netanel.pawzplay.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -8,31 +8,37 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+val LocalPawzColors = staticCompositionLocalOf { ColorPalette.get(ColorProfile.HumanVision) }
+
 @Composable
-fun MyApplicationTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+fun PawzPlayTheme(
+    profile: ColorProfile = if (isSystemInDarkTheme()) ColorProfile.CatVision else ColorProfile.HumanVision,
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
+    val colors = ColorPalette.get(profile)
+
+    val materialColorScheme = if (profile == ColorProfile.CatVision) {
         darkColorScheme(
-            primary = Color(0xFFBB86FC),
-            secondary = Color(0xFF03DAC5),
-            tertiary = Color(0xFF3700B3)
+            primary = colors.primary,
+            secondary = colors.secondary,
+            tertiary = colors.tertiary
         )
     } else {
         lightColorScheme(
-            primary = Color(0xFF6200EE),
-            secondary = Color(0xFF03DAC5),
-            tertiary = Color(0xFF3700B3)
+            primary = colors.primary,
+            secondary = colors.secondary,
+            tertiary = colors.tertiary
         )
     }
+
     val typography = Typography(
         bodyMedium = TextStyle(
             fontFamily = FontFamily.Default,
@@ -40,16 +46,19 @@ fun MyApplicationTheme(
             fontSize = 16.sp
         )
     )
+
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),
         medium = RoundedCornerShape(4.dp),
         large = RoundedCornerShape(0.dp)
     )
 
-    MaterialTheme(
-        colorScheme = colors,
-        typography = typography,
-        shapes = shapes,
-        content = content
-    )
+    CompositionLocalProvider(LocalPawzColors provides colors) {
+        MaterialTheme(
+            colorScheme = materialColorScheme,
+            typography = typography,
+            shapes = shapes,
+            content = content
+        )
+    }
 }
