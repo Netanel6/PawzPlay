@@ -3,6 +3,8 @@ agp = "8.3.0"
 kotlin = "2.0.0"
 compose = "1.6.10"
 androidx-activityCompose = "1.8.0"
+uiAndroid = "1.8.3"
+foundationLayoutAndroid = "1.8.3"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -18,6 +20,8 @@ compose-ui-uikit = { module = "org.jetbrains.compose.ui:ui-uikit", version.ref =
 
 # ✅ Android-only (safe to keep, used in androidApp)
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
+androidx-foundation-layout-android = { group = "androidx.compose.foundation", name = "foundation-layout-android", version.ref = "foundationLayoutAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
