@@ -1,6 +1,5 @@
 package com.netanel.pawzplay.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -20,7 +19,7 @@ val LocalPawzColors = staticCompositionLocalOf { ColorPalette.get(ColorProfile.H
 
 @Composable
 fun PawzPlayTheme(
-    profile: ColorProfile = if (isSystemInDarkTheme()) ColorProfile.CatVision else ColorProfile.HumanVision,
+    profile: ColorProfile,
     content: @Composable () -> Unit
 ) {
     val colors = ColorPalette.get(profile)
@@ -29,13 +28,17 @@ fun PawzPlayTheme(
         darkColorScheme(
             primary = colors.primary,
             secondary = colors.secondary,
-            tertiary = colors.tertiary
+            tertiary = colors.tertiary,
+            background = colors.background,
+            onBackground = colors.onBackground
         )
     } else {
         lightColorScheme(
             primary = colors.primary,
             secondary = colors.secondary,
-            tertiary = colors.tertiary
+            tertiary = colors.tertiary,
+            background = colors.background,
+            onBackground = colors.onBackground
         )
     }
 
